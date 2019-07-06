@@ -1,7 +1,9 @@
 import axios from 'axios';
+/*import { createBrowserHistory } from 'history'*/
 
 const appID = "GsAQKbf6FSq9Tb6sEeogbuiY"
 const appSecret = "jvCf4DxqiE2dwjoHpGQoxikh"
+/*const history  = createBrowserHistory()*/
 
 const instance = axios.create({
     baseURL: 'https://gp-server.hunger-valley.com/',
@@ -32,6 +34,10 @@ instance.interceptors.response.use((response) => {
     }
     return response;
 }, (error) => {
+    if(error.response.status === 401){
+        window.location.href = '/login'
+        console.error('获取用户失败')
+    }
     // Do something with response error
     return Promise.reject(error);
 });

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Input,Icon,Button } from 'antd';
+import {Link} from 'react-router-dom'
 import axios from 'src/config/axios'
+import './SignUp.scss'
 
 
 interface ISignUpState {
@@ -66,6 +68,7 @@ class SignUp extends React.Component<any,ISignUpState>{
                 <Input.Password value={password} placeholder="请输入你的密码" onChange={this.onChangePassword} />
                 <Input.Password value={passwordConfirmation} placeholder="请再次输入你的密码" onChange = {this.onChangePasswordConfirmation} />
                 <Button onClick={ this.submit}>注册</Button>
+                 <p>如果已有账号，请直接 <Link to='/login'>立即登录</Link></p>
             </div>
         )
     }
