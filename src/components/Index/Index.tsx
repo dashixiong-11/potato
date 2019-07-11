@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Button} from 'antd'
+import { Menu,Dropdown,Icon } from 'antd'
 import axios from 'src/config/axios'
+import './Index.scss'
 
 interface IRouter {
     history:any
@@ -18,27 +19,47 @@ class Index extends React.Component<IRouter,IIndexdata>{
    public logout = ()=>{
         localStorage.setItem('x-token','')
         this.props.history.push('/login')
-        console.log('123')
     }
     async componentWillMount(){
         await this.getMe()
     }
      getMe = async() => {
-        try{
             const response = await axios.get( 'me' )
             this.setState({user:response.data})
-        }catch (e) {
-            if(e.response.status === 401){
-                this.props.history.push('/login')
-                console.error('获取用户失败')
-            }
-        }
 }
+    handleMenuClick = e => {
+        if (e.key === '2') {
+            this.logout()
+        }
+    };
+
+
+
+
     public render(){
+        const downmenu = (
+            <Menu onClick={this.handleMenuClick}>
+                <Menu.Item >
+                    <Icon type="user" />
+                    个人设置</Menu.Item>
+                <Menu.Item onClick={this.logout}>
+                    <Icon type="logout" />
+                    注销</Menu.Item>
+            </Menu>
+        );
         return(
             <div className="Index">
-                <p>欢迎{this.state.user.account}</p>
-                <Button onClick={this.logout}> 注销 </Button>
+                <div className="header">
+                    <div className="logo">LOGO</div>
+                    <div className="aside">
+                        <Dropdown overlay={downmenu} >
+                            <a className="ant-dropdown-link" href="#">
+                               {this.state.user.account}
+                               <Icon type="down" />
+                            </a>
+                        </Dropdown>
+                    </div>
+                </div>
             </div>
         )
     }
