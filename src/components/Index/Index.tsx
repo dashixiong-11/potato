@@ -1,32 +1,38 @@
 import * as React from 'react';
-import { Menu,Dropdown,Icon } from 'antd'
+import {Menu, Dropdown, Icon} from 'antd'
 import axios from 'src/config/axios'
+import Todos from '../Todos/Todos'
 import './Index.scss'
 
 interface IRouter {
-    history:any
+    history: any
 }
+
 interface IIndexdata {
-    user:any
+    user: any
 }
-class Index extends React.Component<IRouter,IIndexdata>{
-    constructor(props:any){
+
+class Index extends React.Component<IRouter, IIndexdata> {
+    constructor(props: any) {
         super(props)
         this.state = {
-            user:{}
+            user: {}
         }
     }
-   public logout = ()=>{
-        localStorage.setItem('x-token','')
+
+    public logout = () => {
+        localStorage.setItem('x-token', '')
         this.props.history.push('/login')
     }
-    async componentWillMount(){
+
+    async componentWillMount() {
         await this.getMe()
     }
-     getMe = async() => {
-            const response = await axios.get( 'me' )
-            this.setState({user:response.data})
-}
+
+    getMe = async () => {
+        const response = await axios.get('me')
+        this.setState({user: response.data})
+    }
     handleMenuClick = e => {
         if (e.key === '2') {
             this.logout()
@@ -34,31 +40,30 @@ class Index extends React.Component<IRouter,IIndexdata>{
     };
 
 
-
-
-    public render(){
+    public render() {
         const downmenu = (
             <Menu onClick={this.handleMenuClick}>
-                <Menu.Item >
-                    <Icon type="user" />
+                <Menu.Item>
+                    <Icon type="user"/>
                     个人设置</Menu.Item>
                 <Menu.Item onClick={this.logout}>
-                    <Icon type="logout" />
+                    <Icon type="logout"/>
                     注销</Menu.Item>
             </Menu>
         );
-        return(
+        return (
             <div className="Index">
                 <div className="header">
                     <div className="logo">LOGO</div>
-                    <div className="aside">
-                        <Dropdown overlay={downmenu} >
-                            <a className="ant-dropdown-link" href="#">
-                               {this.state.user.account}
-                               <Icon type="down" />
-                            </a>
-                        </Dropdown>
-                    </div>
+                    <Dropdown overlay={downmenu}>
+                        <a className="ant-dropdown-link" href="#">
+                            {this.state.user.account}
+                            <Icon type="down"/>
+                        </a>
+                    </Dropdown>
+                </div>
+                <div className="main">
+                    <Todos/>
                 </div>
             </div>
         )
