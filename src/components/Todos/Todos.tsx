@@ -2,6 +2,7 @@ import * as React from 'react';
 import TodoInput from './TodoInput'
 import axios from 'src/config/axios'
 import TodoItem from './TodoItem'
+import './Todos.scss'
 
 interface ITodoList {
     todos: any[]
@@ -14,6 +15,17 @@ class Todos extends React.Component<any, ITodoList> {
             todos: []
         }
     }
+
+  get unCompletedTodos(){
+      return this.unDeletedTodos.filter( t => !t.completed  )
+  }
+    get CompletedTodos(){
+        return this.unDeletedTodos.filter( t => t.completed  )
+    }
+
+  get unDeletedTodos(){
+      return this.state.todos.filter( t => !t.deleted  )
+  }
 
     addTodo = async (params: any) => {
         const {todos} = this.state
@@ -76,8 +88,10 @@ class Todos extends React.Component<any, ITodoList> {
                     this.addTodo(params)
                 }}/>
                 <main>
-                    {this.state.todos.map((item) => <TodoItem key={item.id} {...item} update={this.update}
-                                                              toEditing={this.toEditing}/>)}
+                    {this.unCompletedTodos.map((item) => <TodoItem
+                      key={item.id} {...item} update={this.update} toEditing={this.toEditing}/>)}
+                    {this.CompletedTodos.map((item) => <TodoItem
+                        key={item.id} {...item} update={this.update} toEditing={this.toEditing}/>)}
                 </main>
             </div>
         )
