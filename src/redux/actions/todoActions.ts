@@ -1,4 +1,4 @@
-import { ADD_TODO,INIT_TODOS,UPDATE_TODOS,TO_EDITING } from "./actionTypes";
+import { ADD_TODO,INIT_TODOS,UPDATE_TODOS,TO_EDITING } from "../actionTypes";
 
 
 /*引入 action 根据不同的规则 定义不同的触发改变数据的方法*/

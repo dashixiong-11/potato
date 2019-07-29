@@ -38,6 +38,7 @@ class Login extends React.Component<any,ILoginState>{
         const { account,password } = this.state;
         return(
             <div className="SignUp">
+                <p className="title">番茄闹钟</p>
                 <Input
                     placeholder="请输入你的用户名"
                     prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
