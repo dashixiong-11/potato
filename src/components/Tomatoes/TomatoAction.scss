@@ -1,0 +1,9 @@
+.countDownWrapper,.inputWrapper{
+    position: relative;
+}
+.abort{
+  position: absolute;
+  right:-5px;top:-5px;
+  cursor: pointer;
+  background: white;
+}
