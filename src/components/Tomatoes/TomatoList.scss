@@ -1,0 +1,37 @@
+.TomatoList{
+  margin-top: 16px;
+  border-top: 1px solid #ddd;
+  .title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    .time{
+      color: #999999;
+      font-size: 16px;
+    }
+    .num{
+      color:#666;
+      font-size: 12px;
+    }
+  }
+  .tomato{
+    margin-top: 8px;
+    .tomatoItem{
+      margin: 4px 0;
+      display: flex;
+      .timeRange{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-basis: 90px;
+        color:#999;
+        font-size: 14px;
+      }
+      .description{
+        color:#222;
+        margin-left:6px;
+      }
+    }
+  }
+}
