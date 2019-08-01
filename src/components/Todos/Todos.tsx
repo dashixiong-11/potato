@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Collapse } from 'antd';
 import TodoInput from './TodoInput'
 import axios from 'src/config/axios'
 import TodoItem from './TodoItem'
@@ -7,6 +8,12 @@ import  {initTodos}  from "../../redux/actions/todoActions";
 import './Todos.scss'
 
 
+const { Panel } = Collapse;
+const customPanelStyle = {
+    borderRadius: 4,
+    border: 0,
+    overflow: 'hidden',
+};
 class Todos extends React.Component<any> {
     constructor(props) {
         super(props)
@@ -47,8 +54,11 @@ class Todos extends React.Component<any> {
                 <main>
                     {this.unCompletedTodos.map((item) => <TodoItem
                       key={item.id} {...item}/>)}
-                    {this.CompletedTodos.map((item) => <TodoItem
-                        key={item.id} {...item}/>)}
+                    <Collapse bordered={false}>
+                        <Panel header="已完成的任务" key="1" style={customPanelStyle}>
+                            {this.CompletedTodos.map((item) => <TodoItem key={item.id} {...item}/>)}
+                        </Panel>
+                    </Collapse>
                 </main>
             </div>
         )

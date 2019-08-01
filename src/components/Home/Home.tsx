@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {Menu, Dropdown, Icon} from 'antd'
 import axios from 'src/config/axios'
-import Todos from '../Todos/Todos'
-import Tomatoes from '../Tomatoes/Tomatoes'
+/*import Todos from '../Todos/Todos'
+import Tomatoes from '../Tomatoes/Tomatoes'*/
+import Statistics from '../Statistics/Statistics'
 import './Home.scss'
 
 interface IRouter {
@@ -64,8 +65,9 @@ class Home extends React.Component<IRouter, IIndexdata> {
                     </Dropdown>
                 </div>
                 <div className="main">
-                    <Tomatoes/>
-                    <Todos/>
+{/*                    <Tomatoes/>
+                    <Todos/>*/}
+                    <Statistics/>
                 </div>
             </div>
         )
