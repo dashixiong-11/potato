@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Collapse } from 'antd';
 import TodoInput from './TodoInput'
-import axios from 'src/config/axios'
 import TodoItem from './TodoItem'
 import { connect } from 'react-redux'
 import  {initTodos}  from "../../redux/actions/todoActions";
@@ -29,23 +28,6 @@ class Todos extends React.Component<any> {
   get unDeletedTodos(){
       return this.props.todos.filter( t => !t.deleted  )
   }
-
-
-    componentDidMount() {
-        this.getTodos()
-    }
-
-
-    getTodos = async () => {
-        try {
-            const res = await axios.get('todos')
-            const todos = res.data.resources.map((t) => Object.assign({}, t, {editing: false}))
-            this.props.initTodos(todos)
-        } catch (e) {
-            throw new Error(e)
-        }
-    }
-
 
     public render() {
         return (

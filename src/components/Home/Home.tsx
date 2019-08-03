@@ -4,17 +4,22 @@ import axios from 'src/config/axios'
 /*import Todos from '../Todos/Todos'
 import Tomatoes from '../Tomatoes/Tomatoes'*/
 import Statistics from '../Statistics/Statistics'
+import {initTodos} from "../../redux/actions/todoActions";
+import {initTomatoes} from "../../redux/actions/tomatoActions";
+import {connect} from 'react-redux'
+import history from'src/config/hsitory'
 import './Home.scss'
 
-interface IRouter {
+/*interface IRouter {
     history: any
-}
+    initTodos: (a: any) => void
+}*/
 
 interface IIndexdata {
     user: any
 }
 
-class Home extends React.Component<IRouter, IIndexdata> {
+class Home extends React.Component<any, IIndexdata> {
     constructor(props: any) {
         super(props)
         this.state = {
@@ -24,13 +29,32 @@ class Home extends React.Component<IRouter, IIndexdata> {
 
     public logout = () => {
         localStorage.setItem('x-token', '')
-        this.props.history.push('/login')
+        history.push('/login')
     }
 
     async componentWillMount() {
         await this.getMe()
+        await this.getTodos()
+        await this.getTomatoes()
     }
 
+    getTomatoes = async () => {
+        try {
+            const response = await axios.get('tomatoes')
+            this.props.initTomatoes(response.data.resources)
+        } catch (e) {
+            throw new Error(e)
+        }
+    }
+    getTodos = async () => {
+        try {
+            const res = await axios.get('todos')
+            const todos = res.data.resources.map((t) => Object.assign({}, t, {editing: false}))
+            this.props.initTodos(todos)
+        } catch (e) {
+            throw new Error(e)
+        }
+    }
     getMe = async () => {
         const response = await axios.get('me')
         this.setState({user: response.data})
@@ -65,13 +89,21 @@ class Home extends React.Component<IRouter, IIndexdata> {
                     </Dropdown>
                 </div>
                 <div className="main">
-{/*                    <Tomatoes/>
-                    <Todos/>*/}
-                    <Statistics/>
+{/*                   <Tomatoes/>
+                   <Todos/>*/}
                 </div>
+                <Statistics/>
             </div>
         )
     }
 }
 
-export default Home
+const mapDispatchToProps = {
+    initTodos,
+    initTomatoes
+}
+const mapStateToProps = (state, ownProps) => ({
+    ...ownProps
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
