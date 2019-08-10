@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {Menu, Dropdown, Icon} from 'antd'
 import axios from 'src/config/axios'
-/*import Todos from '../Todos/Todos'
-import Tomatoes from '../Tomatoes/Tomatoes'*/
+import Todos from '../Todos/Todos'
+import Tomatoes from '../Tomatoes/Tomatoes'
 import Statistics from '../Statistics/Statistics'
 import {initTodos} from "../../redux/actions/todoActions";
 import {initTomatoes} from "../../redux/actions/tomatoActions";
@@ -89,8 +89,8 @@ class Home extends React.Component<any, IIndexdata> {
                     </Dropdown>
                 </div>
                 <div className="main">
-{/*                   <Tomatoes/>
-                   <Todos/>*/}
+                   <Tomatoes/>
+                   <Todos/>
                 </div>
                 <Statistics/>
             </div>
