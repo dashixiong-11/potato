@@ -16,16 +16,17 @@ class Polygon extends React.Component<IPolygonProps> {
         })
         const fistDay = dates[0]
         if(fistDay){
-            const lastDay = dates[dates.length-1]
-            const range = Date.parse(lastDay) - Date.parse(fistDay)
+            const range = new Date().getTime() - Date.parse(fistDay)
             let finishedCount = 0
+            let finishedY
             const pointArr = dates.map(date => {
                 const x = (Date.parse(date) - Date.parse(fistDay))/range * 240
                 finishedCount += this.props.data[date].length
                 const y = (1 - finishedCount/this.props.totalFinishedCount) * 60
+                finishedY = y
                 return `${x},${y}`
             })
-            return ['0,60', ...pointArr , '240,60'].join(' ')
+            return ['0,60', ...pointArr , `240,${finishedY}`,'240,60'].join(' ')
         }else {
             return "0,60 240,60"
         }
